@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MAAVU by Third Space · A boutique stay in Bengaluru</title>
+    <meta name="description" content="MAAVU by Third Space: an architect-designed private 1BHK in Hennur, Bengaluru. A place beyond home and work." />
+    <link rel="canonical" href="https://thirdspacestays.github.io/" />
+    <meta name="keywords" content="MAAVU, Third Space, Third Space stays, Airbnb Hennur, homestay Bengaluru, boutique stay Bengaluru, Hennur Gardens, Kalyan Nagar stay" />
+    <meta property="og:title" content="MAAVU by Third Space · A boutique stay in Bengaluru" />
+    <meta property="og:description" content="An architect-designed private 1BHK with a big verandah in Hennur, Bengaluru. Stay · Connect · Experience." />
+    <meta property="og:image" content="https://thirdspacestays.github.io/hero_verandah.jpg" />
+    <meta property="og:url" content="https://thirdspacestays.github.io/" />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="third_space_logo_4k_transparent.png" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"LodgingBusiness","name":"MAAVU by Third Space","description":"An architect-designed private 1BHK stay with a large verandah in Hennur, Bengaluru.","image":"https://thirdspacestays.github.io/hero_verandah.jpg","url":"https://thirdspacestays.github.io/","address":{"@type":"PostalAddress","streetAddress":"Satyam Greens, 6th Cross, Mallappa Layout, DVR Layout, Hennur Gardens","addressLocality":"Bengaluru","postalCode":"560113","addressRegion":"Karnataka","addressCountry":"IN"},"sameAs":["https://www.instagram.com/maavu.thirdspace/"]}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap"
+    />
+    <link rel="stylesheet" href="hark.css" />
+    <link rel="stylesheet" href="hark-hero.css" />
+    <script>document.documentElement.classList.add("x-anim");</script>
+    <style>
+      /* MAAVU brand layer: a deliberate departure for a brand landing page. */
+      html:root { color-scheme: light !important; }
+      :root {
+        --x-bg: #eeebe6;
+        --x-ink: #2b2b2b;
+        --x-ink-2: #5e5a55;
+        --x-accent: #b5653f;        /* rules, circles, small details */
+        --x-accent-deep: #9a5434;   /* accent for text and button fills, for contrast */
+        --x-card: #f6f4f0;
+        --x-line: rgb(43 43 43 / 0.12);
+        --x-serif: "Cormorant Garamond", "Cormorant", Georgia, "Times New Roman", serif;
+        --x-sans: "Jost", "Helvetica Neue", Arial, sans-serif;
+        --x-bleed: calc(50% - 50vw);
+      }
+      body { background: var(--x-bg); color: var(--x-ink); font: 300 17px/1.65 var(--x-sans); }
+      body :focus-visible { outline-color: var(--x-accent-deep); }
+
+      /* top bar */
+      .x-bar {
+        position: sticky; top: 0; z-index: 30;
+        margin-inline: var(--x-bleed); margin-top: -12px;
+        background: rgb(238 235 230 / 0.88);
+        -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+        border-bottom: 1px solid var(--x-line);
+      }
+      .x-bar__in {
+        max-width: var(--page-max); margin: 0 auto; padding: 8px var(--gutter);
+        display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      }
+      .x-bar__logo { display: block; width: 64px; }
+
+      /* logo crop: trims the transparent margins of the 3840x2160 file */
+      .x-logo { display: block; aspect-ratio: 1698 / 1392; overflow: hidden; }
+      .x-logo img { width: 226.15%; max-width: none; margin-left: -62.66%; margin-top: -23.2%; }
+
+      /* buttons */
+      .x-btn {
+        display: inline-flex; align-items: center; justify-content: center;
+        min-height: var(--tap); padding: 10px 26px;
+        font: 400 13px/1 var(--x-sans); letter-spacing: 0.16em; text-transform: uppercase;
+        text-decoration: none; border-radius: 0; border: 1px solid var(--x-accent-deep);
+        background: var(--x-accent-deep); color: #fff;
+        transition: background var(--dur-quick) var(--ease-out), color var(--dur-quick) var(--ease-out), border-color var(--dur-quick) var(--ease-out);
+      }
+      .x-btn:hover { background: var(--x-ink); border-color: var(--x-ink); }
+      .x-btn--ghost { background: transparent; color: var(--x-ink); border-color: var(--x-ink); }
+      .x-btn--ghost:hover { background: var(--x-ink); color: var(--x-bg); }
+      .x-btn--light { background: transparent; color: #fff; border-color: rgb(255 255 255 / 0.8); }
+      .x-btn--light:hover { background: #fff; color: var(--x-ink); border-color: #fff; }
+      .x-btn--small { padding: 8px 18px; font-size: 12px; }
+      .x-btns { display: flex; flex-wrap: wrap; gap: 12px; }
+
+      /* hero */
+      .x-hero {
+        position: relative; margin-top: -16px;
+        /* full bleed, but never wider than the photo's native 1536px */
+        margin-inline: max(var(--x-bleed), calc(50% - 768px));
+        min-height: min(92svh, 864px); display: grid; align-items: end;
+        color: #fff; overflow: hidden; background: #3a2c24;
+      }
+      .x-hero > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+      .x-hero::after {
+        content: ""; position: absolute; inset: 0;
+        background:
+          linear-gradient(90deg, rgb(20 14 11 / 0.35) 0%, rgb(20 14 11 / 0) 60%),
+          linear-gradient(180deg, rgb(20 14 11 / 0.12) 0%, rgb(20 14 11 / 0.22) 40%, rgb(20 14 11 / 0.78) 100%);
+      }
+      .x-hero__copy { text-shadow: 0 1px 18px rgb(0 0 0 / 0.25); }
+      .x-hero__copy {
+        position: relative; z-index: 1; width: 100%; max-width: var(--page-max); margin: 0 auto;
+        padding: 120px var(--gutter) clamp(48px, 9vh, 96px);
+      }
+      .x-hero__eyebrow { font: 400 12px/1.4 var(--x-sans); letter-spacing: 0.32em; text-transform: uppercase; color: rgb(255 255 255 / 0.9); }
+      .x-hero h1 {
+        font: 300 clamp(72px, 15vw, 168px)/0.95 var(--x-serif); letter-spacing: 0.12em;
+        margin: 18px 0 14px -0.04em;
+      }
+      .x-hero__sub { font: italic 300 clamp(22px, 3vw, 32px)/1.3 var(--x-serif); max-width: 30ch; }
+      .x-hero__tag { margin: 18px 0 32px; font: 400 13px/1.4 var(--x-sans); letter-spacing: 0.28em; text-transform: uppercase; color: rgb(255 255 255 / 0.88); }
+      .x-hero__tag span { color: #e9b28f; padding: 0 0.4em; }
+
+      /* sections */
+      .x-sec { padding-block: clamp(64px, 11vw, 128px); }
+      .x-sec + .x-sec { border-top: 0; }
+      .x-eyebrow { font: 400 12px/1.4 var(--x-sans); letter-spacing: 0.3em; text-transform: uppercase; color: var(--x-accent-deep); margin-bottom: 20px; }
+      .x-h2 { font: 300 clamp(36px, 5.4vw, 60px)/1.1 var(--x-serif); letter-spacing: 0.01em; margin-bottom: 24px; }
+      .x-h2 em { font-style: italic; }
+      .x-lede { font: 300 clamp(20px, 2.3vw, 26px)/1.5 var(--x-serif); max-width: 34ch; color: var(--x-ink); }
+      .x-text { max-width: 54ch; color: var(--x-ink-2); }
+      .x-text + .x-text { margin-top: 1em; }
+      .x-rule { width: 64px; height: 1px; border: 0; margin: 0 auto; background: var(--x-accent); }
+      .x-center { text-align: center; display: grid; justify-items: center; }
+      .x-split { display: grid; gap: clamp(40px, 6vw, 88px); align-items: center; }
+      @media (min-width: 820px) { .x-split { grid-template-columns: 1fr 1fr; } .x-split--rev > :first-child { order: 2; } }
+
+      /* idea: the circles */
+      .x-venn { width: 100%; max-width: 440px; justify-self: center; }
+      .x-venn text { font-family: var(--x-sans); }
+
+      /* the name */
+      .x-name { font: 300 clamp(26px, 3.6vw, 40px)/1.4 var(--x-serif); max-width: 30ch; }
+      .x-name em { color: var(--x-accent-deep); }
+      .x-name__words { margin-top: 28px; font: 400 13px/1.6 var(--x-sans); letter-spacing: 0.2em; text-transform: uppercase; color: var(--x-ink-2); }
+
+      /* the space */
+      .x-photo { overflow: hidden; }
+      .x-photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; aspect-ratio: 4 / 3; }
+      .x-photo--tall { max-width: 560px; justify-self: center; width: 100%; }
+      .x-photo--tall img { aspect-ratio: 4 / 5; }
+      .x-features { display: grid; gap: 1px; background: var(--x-line); border: 1px solid var(--x-line); margin-top: clamp(48px, 7vw, 80px); }
+      @media (min-width: 640px) { .x-features { grid-template-columns: 1fr 1fr; } .x-feature--last { grid-column: 1 / -1; } }
+      @media (min-width: 980px) {
+        .x-features { grid-template-columns: repeat(6, 1fr); }
+        .x-feature { grid-column: span 2; }
+        .x-feature--wide, .x-feature--last { grid-column: span 3; }
+      }
+      .x-feature { background: var(--x-bg); padding: 32px 28px 36px; }
+      .x-feature__media { margin: -32px -28px 28px; overflow: hidden; }
+      .x-feature__media img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 50%; }
+      .x-feature__media--land img { aspect-ratio: 4 / 3; }
+      .x-feature__num { font: 300 15px/1 var(--x-serif); color: var(--x-accent-deep); letter-spacing: 0.1em; }
+      .x-feature h3 { font: 400 26px/1.2 var(--x-serif); margin: 18px 0 10px; }
+      .x-feature p { color: var(--x-ink-2); font-size: 16px; }
+      .x-verandah h3 { font: 300 clamp(30px, 4vw, 44px)/1.15 var(--x-serif); margin-bottom: 18px; }
+
+      /* gallery */
+      .x-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(10px, 1.6vw, 20px); margin-top: 40px; }
+      .x-gallery figure { margin: 0; overflow: hidden; display: grid; }
+      .x-gallery figure:first-child { grid-column: 1 / -1; }
+      @media (min-width: 720px) {
+        .x-gallery { grid-template-columns: repeat(4, 1fr); }
+        .x-gallery figure:first-child, .x-gallery .x-tile--big { grid-column: span 2; grid-row: span 2; }
+      }
+      .x-tile { display: block; width: 100%; height: 100%; padding: 0; border: 0; background: #d9d3cb; cursor: zoom-in; overflow: hidden; }
+      .x-tile img { display: block; width: 100%; height: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 50%; transition: transform 1.2s var(--ease-out); }
+      .x-tile:hover img { transform: scale(1.03); }
+      .x-tile:focus-visible { outline: 2px solid var(--x-accent-deep); outline-offset: 3px; }
+
+      /* lightbox */
+      .x-lb { border: 0; padding: 0; margin: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; background: rgb(20 15 12 / 0.94); color: #fff; }
+      .x-lb::backdrop { background: rgb(20 15 12 / 0.94); }
+      .x-lb[open] { display: grid; place-items: center; }
+      .x-lb img { max-width: min(92vw, 1536px); max-height: 86dvh; width: auto; height: auto; object-fit: contain; }
+      .x-lb__btn {
+        position: absolute; min-width: var(--tap); min-height: var(--tap); padding: 0 14px;
+        background: transparent; color: #fff; border: 1px solid rgb(255 255 255 / 0.5); border-radius: 0;
+        font: 400 13px/1 var(--x-sans); letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer;
+      }
+      .x-lb__btn:hover { background: #fff; color: var(--x-ink); }
+      .x-lb__close { top: 16px; right: 16px; }
+      .x-lb__prev, .x-lb__next { top: 50%; transform: translateY(-50%); font-size: 22px; letter-spacing: 0; }
+      .x-lb__prev { left: 16px; }
+      .x-lb__next { right: 16px; }
+      .x-lb__count { position: absolute; bottom: 18px; left: 0; right: 0; text-align: center; font: 400 12px/1 var(--x-sans); letter-spacing: 0.24em; color: rgb(255 255 255 / 0.8); }
+      @media (max-width: 599px) { .x-lb__prev, .x-lb__next { top: auto; bottom: 8px; transform: none; } }
+
+      /* good for */
+      .x-for { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--x-accent); }
+      @media (min-width: 820px) { .x-for { grid-template-columns: repeat(4, 1fr); } }
+      .x-for li { padding: 28px 12px 0; font: 300 clamp(24px, 2.6vw, 30px)/1.2 var(--x-serif); text-align: center; }
+      .x-for li small { display: block; font: 400 12px/1 var(--x-sans); letter-spacing: 0.2em; color: var(--x-accent-deep); margin-bottom: 12px; }
+
+      /* location */
+      .x-address { font-style: normal; font: 300 clamp(22px, 2.6vw, 28px)/1.45 var(--x-serif); margin-bottom: 18px; }
+
+      /* book & contact */
+      .x-contact { display: grid; gap: 16px; margin-top: 40px; text-align: left; width: 100%; }
+      @media (min-width: 640px) { .x-contact { grid-template-columns: 1fr 1fr; } }
+      @media (min-width: 1000px) { .x-contact { grid-template-columns: repeat(4, 1fr); } }
+      .x-card { background: var(--x-card); border-top: 1px solid var(--x-accent); padding: 32px 26px; display: grid; align-content: start; gap: 14px; }
+      .x-card h3 { font: 400 28px/1.15 var(--x-serif); }
+      .x-card p { color: var(--x-ink-2); font-size: 16px; }
+      .x-card .x-btn { justify-self: start; }
+      .x-soon { font: 400 12px/1.4 var(--x-sans) !important; letter-spacing: 0.18em; text-transform: uppercase; color: var(--x-ink-2); }
+      .x-link { color: var(--x-ink); text-decoration: underline; text-decoration-color: var(--x-accent); text-underline-offset: 5px; text-decoration-thickness: 1px; font-size: 18px; min-height: var(--tap); display: inline-flex; align-items: center; }
+      .x-link:hover { color: var(--x-accent-deep); }
+      .x-link--off { text-decoration: none; color: var(--x-ink-2); pointer-events: none; }
+
+      /* footer */
+      .x-foot { margin-inline: var(--x-bleed); margin-bottom: -40px; border-top: 1px solid var(--x-line); padding: clamp(56px, 9vw, 96px) var(--gutter) 40px; text-align: center; display: grid; justify-items: center; gap: 22px; }
+      .x-foot .x-logo { width: clamp(160px, 22vw, 240px); }
+      .x-foot__line { font: 400 12px/1.8 var(--x-sans); letter-spacing: 0.24em; text-transform: uppercase; color: var(--x-ink-2); max-width: 60ch; }
+      .x-foot__copy { font-size: 13px; color: var(--x-ink-2); }
+
+      /* fade in on scroll */
+      .x-anim .x-fade { opacity: 0; transform: translateY(18px); transition: opacity 1s var(--ease-out), transform 1s var(--ease-out); }
+      .x-anim .x-fade.is-in { opacity: 1; transform: none; }
+      @media (prefers-reduced-motion: reduce) {
+        .x-anim .x-fade { opacity: 1; transform: none; transition: none; }
+        .x-tile img { transition: none; }
+      }
+      @media (max-width: 599px) {
+        body { font-size: 16px; }
+        .x-hero { min-height: 88svh; }
+        .x-btns .x-btn { flex: 1 1 100%; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page" id="top">
+      <header class="x-bar">
+        <div class="x-bar__in">
+          <a class="x-bar__logo" href="#top" aria-label="MAAVU by Third Space, back to top">
+            <span class="x-logo"><img src="third_space_logo_4k_transparent.png" alt="Third Space" /></span>
+          </a>
+          <a class="x-btn x-btn--small" href="#book">Book your stay</a>
+        </div>
+      </header>
+
+      <main class="main">
+        <!-- 1. Hero -->
+        <section class="x-hero" aria-label="MAAVU">
+          <img src="hero_verandah.jpg" alt="The verandah at MAAVU, with the open door looking through to the terracotta arch in the living room" />
+          <div class="x-hero__copy">
+            <p class="x-hero__eyebrow">Third Space · Bengaluru</p>
+            <h1>MAAVU</h1>
+            <p class="x-hero__sub">A place beyond home and work.</p>
+            <p class="x-hero__tag">Stay<span>·</span>Connect<span>·</span>Experience</p>
+            <div class="x-btns">
+              <!-- PLACEHOLDER_AIRBNB_URL: replace href="#" with the Airbnb listing URL -->
+              <a class="x-btn" href="#" data-link="airbnb">Book on Airbnb</a>
+              <a class="x-btn x-btn--light" href="https://www.instagram.com/maavu.thirdspace/" target="_blank" rel="noopener">Follow on Instagram</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. The idea -->
+        <section class="x-sec" id="idea">
+          <div class="x-split">
+            <div class="x-fade">
+              <p class="x-eyebrow">The idea</p>
+              <h2 class="x-h2">The <em>third</em> space</h2>
+              <p class="x-lede">Home is your first space. Work is your second. MAAVU is the third: a calm place in between, to slow down, reconnect and feel at ease.</p>
+            </div>
+            <svg class="x-venn x-fade" viewBox="0 0 400 260" role="img" aria-label="Two overlapping circles: Home and Work, with MAAVU in the overlap">
+              <defs>
+                <clipPath id="x-clip-home"><circle cx="150" cy="130" r="105" /></clipPath>
+              </defs>
+              <circle cx="250" cy="130" r="105" clip-path="url(#x-clip-home)" fill="#b5653f" fill-opacity="0.85" />
+              <circle cx="150" cy="130" r="105" fill="none" stroke="#2b2b2b" stroke-width="0.8" />
+              <circle cx="250" cy="130" r="105" fill="none" stroke="#2b2b2b" stroke-width="0.8" />
+              <text x="98" y="135" text-anchor="middle" font-size="13" letter-spacing="3" fill="#2b2b2b">HOME</text>
+              <text x="302" y="135" text-anchor="middle" font-size="13" letter-spacing="3" fill="#2b2b2b">WORK</text>
+              <text x="200" y="135" text-anchor="middle" font-size="13" letter-spacing="3" fill="#ffffff" font-weight="500">MAAVU</text>
+            </svg>
+          </div>
+        </section>
+
+        <hr class="x-rule" />
+
+        <!-- 3. The name -->
+        <section class="x-sec x-center" id="name">
+          <p class="x-eyebrow x-fade">The name</p>
+          <p class="x-name x-fade"><em>Maavu</em> means mango tree in Kannada and Malayalam. Like the shade of an old mango tree, it's a place to pause, gather and stay a while.</p>
+          <p class="x-name__words x-fade">Kannada · Malayalam</p>
+        </section>
+
+        <hr class="x-rule" />
+
+        <!-- 4. The space -->
+        <section class="x-sec" id="space">
+          <div class="x-fade">
+            <p class="x-eyebrow">The space</p>
+            <h2 class="x-h2">An entire private 1BHK,<br /><em>designed by an architect.</em></h2>
+          </div>
+          <div class="x-split x-verandah" style="margin-top: clamp(32px, 5vw, 56px)">
+            <figure class="x-photo x-photo--tall x-fade" style="margin: 0">
+              <img src="maavu_8433.jpg" alt="The covered verandah with a daybed, curtains and a wooden swing" />
+            </figure>
+            <div class="x-fade">
+              <p class="x-eyebrow">The verandah</p>
+              <h3>A large private verandah</h3>
+              <p class="x-text">A large covered verandah under a pitched roof, with a wooden swing, a daybed, cane stools and string lights, made for slow mornings and long evening conversations.</p>
+            </div>
+          </div>
+          <div class="x-features">
+            <div class="x-feature x-fade">
+              <figure class="x-feature__media"><img src="maavu_8460.jpg" alt="The living room's terracotta arch with a floor lamp, bookshelf and sofa" /></figure>
+              <p class="x-feature__num">01</p>
+              <h3>Living room</h3>
+              <p>For reading, working or unwinding.</p>
+            </div>
+            <div class="x-feature x-fade">
+              <figure class="x-feature__media"><img src="maavu_8448.jpg" alt="The terracotta arch wall with floating shelves" /></figure>
+              <p class="x-feature__num">02</p>
+              <h3>The details</h3>
+              <p>A terracotta arch wall, floating shelves of plants and books, warm lamp light.</p>
+            </div>
+            <div class="x-feature x-fade">
+              <figure class="x-feature__media"><img src="maavu_8484.jpg" alt="The bathroom sink and mirror with terrazzo-style tiles" /></figure>
+              <p class="x-feature__num">03</p>
+              <h3>Bathroom</h3>
+              <p>Bright terrazzo-style tiles and a terracotta finish.</p>
+            </div>
+            <div class="x-feature x-feature--wide x-fade">
+              <figure class="x-feature__media x-feature__media--land"><img src="maavu_8469.jpg" alt="The bedroom with a terracotta dado and woven plates on the wall" /></figure>
+              <p class="x-feature__num">04</p>
+              <h3>Bedroom</h3>
+              <p>Cosy, quiet and made for deep rest.</p>
+            </div>
+            <div class="x-feature x-feature--last x-fade">
+              <p class="x-feature__num">05</p>
+              <h3>Kitchen</h3>
+              <p>For simple home-cooked meals.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. Gallery -->
+        <section class="x-sec" id="gallery" style="padding-top: 0">
+          <p class="x-eyebrow x-fade">Gallery</p>
+          <div class="x-gallery">
+            <figure class="x-fade"><button class="x-tile" type="button" aria-label="Open photo: the verandah, wide view"><img src="maavu_8446.jpg" alt="A wide view of the covered verandah" /></button></figure>
+            <figure class="x-fade"><button class="x-tile" type="button" aria-label="Open photo: the wooden swing"><img src="maavu_8439.jpg" alt="The wooden swing on the verandah" /></button></figure>
+            <figure class="x-fade"><button class="x-tile" type="button" aria-label="Open photo: the verandah and front door"><img src="maavu_8427.jpg" alt="The front of the verandah with the door into the house" /></button></figure>
+            <figure class="x-fade"><button class="x-tile" type="button" aria-label="Open photo: the living room arch"><img src="maavu_8465.jpg" alt="The living room and its terracotta arch, up close" /></button></figure>
+            <figure class="x-fade"><button class="x-tile" type="button" aria-label="Open photo: the bedroom"><img src="maavu_8468.jpg" alt="The bedroom" /></button></figure>
+            <figure class="x-tile--big x-fade"><button class="x-tile" type="button" aria-label="Open photo: the bedside lamp"><img src="maavu_8483.jpg" alt="The bedside lamp, a close detail" /></button></figure>
+            <figure class="x-tile--big x-fade"><button class="x-tile" type="button" aria-label="Open photo: the bathroom"><img src="maavu_8485.jpg" alt="The bathroom" /></button></figure>
+          </div>
+          <dialog class="x-lb" aria-label="Photo viewer">
+            <img alt="" />
+            <button class="x-lb__btn x-lb__close" type="button">Close</button>
+            <button class="x-lb__btn x-lb__prev" type="button" aria-label="Previous photo">‹</button>
+            <button class="x-lb__btn x-lb__next" type="button" aria-label="Next photo">›</button>
+            <p class="x-lb__count" aria-live="polite"></p>
+          </dialog>
+        </section>
+
+        <hr class="x-rule" />
+
+        <!-- 6. Good for -->
+        <section class="x-sec x-center" id="for">
+          <p class="x-eyebrow x-fade">Good for</p>
+          <h2 class="x-h2 x-fade">Made for a slower kind of stay</h2>
+          <ul class="x-for x-fade" style="width: 100%">
+            <li><small>I</small>Couples</li>
+            <li><small>II</small>Solo travellers</li>
+            <li><small>III</small>Remote workers</li>
+            <li><small>IV</small>Short city stays</li>
+          </ul>
+        </section>
+
+        <hr class="x-rule" />
+
+        <!-- 7. Location -->
+        <section class="x-sec" id="location">
+          <div class="x-split">
+            <figure class="x-photo x-photo--tall x-fade" style="margin: 0">
+              <img src="maavu_8429.jpg" alt="The house entrance at night under its lit gable roof" />
+            </figure>
+            <div class="x-fade">
+              <p class="x-eyebrow">Location</p>
+              <h2 class="x-h2">A quiet lane in <em>Hennur</em></h2>
+              <address class="x-address">Satyam Greens, 6th Cross, Mallappa Layout, DVR Layout, Hennur Gardens, Bengaluru 560113</address>
+              <p class="x-text">A quiet residential lane, with Hennur's cafés close by.</p>
+              <div class="x-btns" style="margin-top: 28px">
+                <a class="x-btn x-btn--ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Satyam%20Greens%2C%20DVR%20Layout%2C%20Hennur%20Gardens%2C%20Bengaluru%20560113" target="_blank" rel="noopener">Open in Google Maps</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <hr class="x-rule" />
+
+        <!-- 8. Book & contact -->
+        <section class="x-sec x-center" id="book">
+          <p class="x-eyebrow x-fade">Book &amp; contact</p>
+          <h2 class="x-h2 x-fade">Come and stay a while</h2>
+          <div class="x-contact">
+            <div class="x-card x-fade">
+              <p class="x-soon">Airbnb</p>
+              <h3>Book your stay</h3>
+              <!-- PLACEHOLDER_AIRBNB_URL: replace href="#" with the Airbnb listing URL, then remove the "Listing coming soon" line -->
+              <a class="x-btn" href="#" data-link="airbnb">Book on Airbnb</a>
+              <p class="x-soon">Listing coming soon</p>
+            </div>
+            <div class="x-card x-fade">
+              <p class="x-soon">Instagram</p>
+              <h3>Follow along</h3>
+              <a class="x-link" href="https://www.instagram.com/maavu.thirdspace/" target="_blank" rel="noopener">@maavu.thirdspace</a>
+            </div>
+            <div class="x-card x-fade">
+              <p class="x-soon">Email</p>
+              <h3>Write to us</h3>
+              <!-- PLACEHOLDER_EMAIL: set href="mailto:hello@example.com", show the address, and remove the x-link--off class -->
+              <a class="x-link x-link--off" href="#" data-link="email" aria-disabled="true">Email — coming soon</a>
+            </div>
+            <div class="x-card x-fade">
+              <p class="x-soon">Phone / WhatsApp</p>
+              <h3>Message us</h3>
+              <!-- PLACEHOLDER_PHONE: set href="https://wa.me/91XXXXXXXXXX", show the number, and remove the x-link--off class -->
+              <a class="x-link x-link--off" href="#" data-link="phone" aria-disabled="true">WhatsApp — coming soon</a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- 9. Footer -->
+      <footer class="x-foot">
+        <span class="x-logo"><img src="third_space_logo_4k_transparent.png" alt="MAAVU by Third Space" /></span>
+        <hr class="x-rule" />
+        <p class="x-foot__line">MAAVU by Third Space · Stay · Connect · Experience · Bengaluru</p>
+        <a class="x-link" href="https://www.instagram.com/maavu.thirdspace/" target="_blank" rel="noopener">Instagram</a>
+        <p class="x-foot__copy">© 2026 MAAVU by Third Space</p>
+      </footer>
+    </div>
+    <script src="hark.js"></script>
+    <script>
+      (function () {
+        var els = [].slice.call(document.querySelectorAll(".x-fade"));
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (reduce || !("IntersectionObserver" in window)) { els.forEach(function (el) { el.classList.add("is-in"); }); return; }
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } });
+        }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
+        els.forEach(function (el) { io.observe(el); });
+        // Placeholder links: keep the page in place until the real URLs are added.
+        [].slice.call(document.querySelectorAll('a[href="#"][data-link]')).forEach(function (a) {
+          a.addEventListener("click", function (ev) {
+            ev.preventDefault();
+            if (a.getAttribute("data-link") === "airbnb" && !a.closest("#book")) document.getElementById("book").scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+          });
+        });
+      })();
+      // Gallery lightbox: shows the full, uncropped photo.
+      (function () {
+        var lb = document.querySelector(".x-lb");
+        if (!lb || typeof lb.showModal !== "function") return;
+        var tiles = [].slice.call(document.querySelectorAll(".x-gallery .x-tile"));
+        var big = lb.querySelector("img"), count = lb.querySelector(".x-lb__count");
+        var i = 0, opener = null;
+        function show(n) {
+          i = (n + tiles.length) % tiles.length;
+          var src = tiles[i].querySelector("img");
+          big.src = src.currentSrc || src.src;
+          big.alt = src.alt;
+          count.textContent = (i + 1) + " / " + tiles.length;
+        }
+        tiles.forEach(function (t, n) {
+          t.addEventListener("click", function () { opener = t; show(n); lb.showModal(); });
+        });
+        lb.querySelector(".x-lb__close").addEventListener("click", function () { lb.close(); });
+        lb.querySelector(".x-lb__prev").addEventListener("click", function () { show(i - 1); });
+        lb.querySelector(".x-lb__next").addEventListener("click", function () { show(i + 1); });
+        lb.addEventListener("click", function (e) { if (e.target === lb) lb.close(); });
+        lb.addEventListener("keydown", function (e) {
+          if (e.key === "ArrowLeft") show(i - 1);
+          if (e.key === "ArrowRight") show(i + 1);
+        });
+        lb.addEventListener("close", function () { if (opener) opener.focus(); });
+      })();
+    </script>
+  </body>
+</html>
