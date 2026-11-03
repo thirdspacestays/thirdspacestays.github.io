@@ -13,7 +13,7 @@
     <meta property="og:url" content="https://thirdspacestays.github.io/" />
     <meta property="og:type" content="website" />
     <link rel="icon" href="third_space_logo_4k_transparent.png" />
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"LodgingBusiness","name":"MAAVU by Third Space","description":"An architect-designed private 1BHK stay with a large verandah in Hennur, Bengaluru.","image":"https://thirdspacestays.github.io/hero_verandah.jpg","url":"https://thirdspacestays.github.io/","address":{"@type":"PostalAddress","streetAddress":"Satyam Greens, 6th Cross, Mallappa Layout, DVR Layout, Hennur Gardens","addressLocality":"Bengaluru","postalCode":"560113","addressRegion":"Karnataka","addressCountry":"IN"},"sameAs":["https://www.instagram.com/maavu.thirdspace/"]}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"LodgingBusiness","name":"MAAVU by Third Space","description":"An architect-designed private 1BHK stay with a large verandah in Hennur, Bengaluru.","image":"https://thirdspacestays.github.io/hero_verandah.jpg","url":"https://thirdspacestays.github.io/","telephone":"+91-8088003883","email":"thirdspacestays.in@gmail.com","address":{"@type":"PostalAddress","streetAddress":"Satyam Greens, 6th Cross, Mallappa Layout, DVR Layout, Hennur Gardens","addressLocality":"Bengaluru","postalCode":"560113","addressRegion":"Karnataka","addressCountry":"IN"},"sameAs":["https://www.instagram.com/maavu.thirdspace/"]}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -201,6 +201,15 @@
       .x-link { color: var(--x-ink); text-decoration: underline; text-decoration-color: var(--x-accent); text-underline-offset: 5px; text-decoration-thickness: 1px; font-size: 18px; min-height: var(--tap); display: inline-flex; align-items: center; }
       .x-link:hover { color: var(--x-accent-deep); }
       .x-link--off { text-decoration: none; color: var(--x-ink-2); pointer-events: none; }
+      .x-direct { max-width: 760px; margin: 28px auto 0; text-align: left; }
+      .x-form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .x-form label { display: grid; gap: 6px; font: 400 12px/1.4 var(--x-sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--x-ink-2); }
+      .x-form input, .x-form textarea { font: 300 17px/1.4 var(--x-sans); color: var(--x-ink); background: #fff; border: 1px solid var(--x-line); border-radius: 0; padding: 10px 12px; min-height: 44px; width: 100%; text-transform: none; letter-spacing: 0; }
+      .x-form input:focus, .x-form textarea:focus { outline: 2px solid var(--x-accent-deep); outline-offset: 1px; }
+      .x-form__wide { grid-column: 1 / -1; }
+      .x-form__btns { display: flex; flex-wrap: wrap; gap: 12px; }
+      .x-form__err { color: var(--x-accent-deep) !important; font-size: 15px !important; }
+      @media (max-width: 560px) { .x-form { grid-template-columns: 1fr; } }
 
       /* footer */
       .x-foot { margin-inline: var(--x-bleed); margin-bottom: -40px; border-top: 1px solid var(--x-line); padding: clamp(56px, 9vw, 96px) var(--gutter) 40px; text-align: center; display: grid; justify-items: center; gap: 22px; }
@@ -409,15 +418,32 @@
             <div class="x-card x-fade">
               <p class="x-soon">Email</p>
               <h3>Write to us</h3>
-              <!-- PLACEHOLDER_EMAIL: set href="mailto:hello@example.com", show the address, and remove the x-link--off class -->
-              <a class="x-link x-link--off" href="#" data-link="email" aria-disabled="true">Email — coming soon</a>
+              <a class="x-link" href="mailto:thirdspacestays.in@gmail.com">thirdspacestays.in@gmail.com</a>
             </div>
             <div class="x-card x-fade">
               <p class="x-soon">Phone / WhatsApp</p>
               <h3>Message us</h3>
-              <!-- PLACEHOLDER_PHONE: set href="https://wa.me/91XXXXXXXXXX", show the number, and remove the x-link--off class -->
-              <a class="x-link x-link--off" href="#" data-link="phone" aria-disabled="true">WhatsApp — coming soon</a>
+              <a class="x-link" href="https://wa.me/918088003883" target="_blank" rel="noopener">+91 80880 03883</a>
+              <a class="x-link" href="tel:+918088003883">Call us</a>
             </div>
+          </div>
+          <div class="x-card x-direct x-fade" id="direct">
+            <p class="x-soon">Book direct</p>
+            <h3>Request your dates</h3>
+            <p>Tell us when you'd like to stay. We'll confirm availability and the price on WhatsApp, usually the same day.</p>
+            <form class="x-form" id="x-direct-form" novalidate>
+              <label>Check-in<input type="date" name="in" required /></label>
+              <label>Check-out<input type="date" name="out" required /></label>
+              <label>Guests<input type="number" name="guests" min="1" value="2" required /></label>
+              <label>Your name<input type="text" name="name" autocomplete="name" required /></label>
+              <label class="x-form__wide">Phone<input type="tel" name="phone" autocomplete="tel" /></label>
+              <label class="x-form__wide">Anything we should know?<textarea name="note" rows="3"></textarea></label>
+              <p class="x-form__err x-form__wide" role="alert" hidden></p>
+              <div class="x-form__btns x-form__wide">
+                <button class="x-btn" type="submit" data-via="wa">Send on WhatsApp</button>
+                <button class="x-btn x-btn--ghost" type="submit" data-via="mail">Send by email</button>
+              </div>
+            </form>
           </div>
         </section>
       </main>
@@ -475,6 +501,32 @@
           if (e.key === "ArrowRight") show(i + 1);
         });
         lb.addEventListener("close", function () { if (opener) opener.focus(); });
+      })();
+    </script>
+    <script>
+      // Direct booking request: builds a WhatsApp or email message from the form.
+      (function () {
+        var f = document.getElementById("x-direct-form"); if (!f) return;
+        var err = f.querySelector(".x-form__err"), via = "wa";
+        var today = new Date(); today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+        var iso = today.toISOString().slice(0, 10);
+        f.elements["in"].min = iso; f.elements["out"].min = iso;
+        f.elements["in"].addEventListener("change", function () { f.elements["out"].min = this.value || iso; });
+        [].slice.call(f.querySelectorAll("button[data-via]")).forEach(function (b) { b.addEventListener("click", function () { via = b.getAttribute("data-via"); }); });
+        f.addEventListener("submit", function (ev) {
+          ev.preventDefault();
+          var v = function (n) { return (f.elements[n].value || "").trim(); };
+          var msg = "";
+          if (!v("in") || !v("out") || !v("name")) msg = "Please add your dates and name.";
+          else if (v("out") <= v("in")) msg = "Check-out needs to be after check-in.";
+          if (msg) { err.textContent = msg; err.hidden = false; return; }
+          err.hidden = true;
+          var text = "Hi MAAVU, I'd like to book a stay.\n" +
+            "Check-in: " + v("in") + "\nCheck-out: " + v("out") + "\nGuests: " + v("guests") +
+            "\nName: " + v("name") + (v("phone") ? "\nPhone: " + v("phone") : "") + (v("note") ? "\nNote: " + v("note") : "");
+          if (via === "mail") window.location.href = "mailto:thirdspacestays.in@gmail.com?subject=" + encodeURIComponent("Booking request: " + v("in") + " to " + v("out")) + "&body=" + encodeURIComponent(text);
+          else window.open("https://wa.me/918088003883?text=" + encodeURIComponent(text), "_blank", "noopener");
+        });
       })();
     </script>
   </body>
