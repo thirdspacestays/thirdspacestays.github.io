@@ -216,6 +216,9 @@
       .x-quote { background: #fff; border: 1px solid var(--x-line); padding: 14px 16px; font: 300 17px/1.5 var(--x-sans); color: var(--x-ink); }
       .x-quote strong { font-weight: 500; }
       .x-policy { font: 300 14px/1.6 var(--x-sans); color: var(--x-ink-2); margin: 0; }
+      .x-step > .x-form { margin: 0; }
+      .x-back { background: none; border: 0; padding: 0; cursor: pointer; font: inherit; }
+      .x-quote__big { display: block; font: 400 28px/1.3 var(--x-serif, var(--x-sans)); margin-top: 4px; }
       .x-form__ok { color: var(--x-ink) !important; font-size: 16px !important; background: #fff; border-left: 3px solid var(--x-accent-deep); padding: 12px 14px; }
 
       /* footer */
@@ -437,28 +440,33 @@
           <div class="x-card x-direct x-fade" id="direct">
             <p class="x-soon">Book direct</p>
             <h3>Request your dates</h3>
-            <div class="x-rates">
-              <span><b>&#8377;3,700</b> a night, Sun to Thu</span>
-              <span><b>&#8377;4,070</b> a night, Fri and Sat</span>
-              <span>Up to 4 guests</span>
-              <span>Check-in 1 pm &middot; Check-out 11 am</span>
-            </div>
             <form class="x-form" id="x-direct-form" novalidate>
-              <label>Check-in<input type="date" name="in" required /></label>
-              <label>Check-out<input type="date" name="out" required /></label>
-              <label>Guests<select name="guests"><option>1</option><option selected>2</option><option>3</option><option>4</option><option value="more">More than 4</option></select></label>
-              <label>Your name<input type="text" name="name" autocomplete="name" required /></label>
-              <label>Phone<input type="tel" name="phone" autocomplete="tel" /></label>
-              <label>Email<input type="email" name="email" autocomplete="email" /></label>
-              <label class="x-form__wide">Anything we should know?<textarea name="note" rows="3"></textarea></label>
-              <div class="x-quote x-form__wide" aria-live="polite" hidden></div>
-              <p class="x-form__err x-form__wide" role="alert" hidden></p>
-              <p class="x-form__ok x-form__wide" role="status" hidden></p>
-              <div class="x-form__btns x-form__wide">
-                <button class="x-btn" type="submit" data-via="req">Send request</button>
-                <button class="x-btn x-btn--ghost" type="submit" data-via="wa">Ask on WhatsApp</button>
+              <div class="x-step x-form__wide" data-step="1">
+                <div class="x-form">
+                  <label>Check-in<input type="date" name="in" required /></label>
+                  <label>Check-out<input type="date" name="out" required /></label>
+                  <label class="x-form__wide">Guests<select name="guests"><option>1</option><option selected>2</option><option>3</option><option>4</option><option value="more">5 or more</option></select></label>
+                  <p class="x-form__err x-form__wide" role="alert" hidden></p>
+                  <div class="x-form__btns x-form__wide"><button class="x-btn" type="button" data-act="check">Check availability</button></div>
+                </div>
               </div>
-              <p class="x-policy x-form__wide">No payment now. We confirm your dates, usually the same day, then send a secure payment link. Full payment confirms the booking. Full refund if you cancel at least 2 days before check-in.</p>
+              <div class="x-step x-form__wide" data-step="2" hidden>
+                <div class="x-form">
+                  <div class="x-quote x-form__wide" aria-live="polite"></div>
+                  <label>Your name<input type="text" name="name" autocomplete="name" required /></label>
+                  <label>Phone<input type="tel" name="phone" autocomplete="tel" /></label>
+                  <label class="x-form__wide">Email<input type="email" name="email" autocomplete="email" /></label>
+                  <label class="x-form__wide">Anything we should know?<textarea name="note" rows="3"></textarea></label>
+                  <p class="x-form__err x-form__wide" role="alert" hidden></p>
+                  <p class="x-form__ok x-form__wide" role="status" hidden></p>
+                  <div class="x-form__btns x-form__wide">
+                    <button class="x-btn" type="submit" data-via="req">Send request</button>
+                    <button class="x-btn x-btn--ghost" type="submit" data-via="wa">Chat on WhatsApp</button>
+                  </div>
+                  <p class="x-policy x-form__wide">No payment now. We confirm your dates, usually the same day, then send a secure payment link. Full payment confirms the booking. Full refund if you cancel at least 2 days before check-in.</p>
+                  <p class="x-form__wide"><button class="x-link x-back" type="button" data-act="back">&larr; Change dates</button></p>
+                </div>
+              </div>
             </form>
           </div>
         </section>
@@ -520,69 +528,87 @@
       })();
     </script>
     <script>
-      // Direct booking request: live price, availability check, sends to the MAAVU backend (Google Apps Script).
+      // Direct booking request: step 1 dates and guests, step 2 price and contact. Sends to the MAAVU backend (Google Apps Script).
       (function () {
         var ENDPOINT = "https://script.google.com/macros/s/AKfycbzYxkltDZ3kDjYX_MPJC4YIu4QuOkMqzTJVCxcESvx1zL0jZ13O8As6eYm66I0_LpNbSA/exec";
-        var cfg = { rate: 3700, weekendUplift: 10, weekendDays: [5, 6], maxGuests: 4, minNights: 1, special: [], booked: [] };
+        var cfg = null;
         var f = document.getElementById("x-direct-form"); if (!f) return;
-        var err = f.querySelector(".x-form__err"), ok = f.querySelector(".x-form__ok"), qbox = f.querySelector(".x-quote"), via = "req";
+        var s1 = f.querySelector('[data-step="1"]'), s2 = f.querySelector('[data-step="2"]');
+        var err1 = s1.querySelector(".x-form__err"), err2 = s2.querySelector(".x-form__err"), ok = s2.querySelector(".x-form__ok"), qbox = s2.querySelector(".x-quote");
+        var checkBtn = s1.querySelector('[data-act="check"]'), via = "req", q = null;
         var pad = function (n) { return (n < 10 ? "0" : "") + n; };
         var key = function (d) { return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); };
-        var parse = function (s) { var a = s.split("-"); return new Date(+a[0], +a[1] - 1, +a[2]); };
+        var parse = function (x) { var a = x.split("-"); return new Date(+a[0], +a[1] - 1, +a[2]); };
+        var nice = function (x) { return parse(x).toLocaleDateString("en-IN", { weekday: "short", day: "numeric", month: "short" }); };
+        var time12 = function (t) { if (!t) return ""; var a = t.split(":"), h = +a[0], m = a[1] || "00"; return (h % 12 || 12) + (m !== "00" ? ":" + m : "") + (h < 12 ? " am" : " pm"); };
         var inr = function (n) { return "\u20b9" + n.toLocaleString("en-IN"); };
+        var v = function (n) { return (f.elements[n].value || "").trim(); };
         var iso = key(new Date());
         f.elements["in"].min = iso; f.elements["out"].min = iso;
-        if (ENDPOINT) fetch(ENDPOINT).then(function (r) { return r.json(); }).then(function (c) { if (c && c.rate) { cfg = c; quote(); } }).catch(function () {});
-        var v = function (n) { return (f.elements[n].value || "").trim(); };
-        function nights() {
-          var out = [], d = parse(v("in")), end = parse(v("out"));
-          while (d < end) { out.push(new Date(d)); d.setDate(d.getDate() + 1); }
-          return out;
-        }
-        function quote() {
-          if (!v("in") || !v("out") || v("out") <= v("in")) { qbox.hidden = true; return null; }
-          var total = 0, taken = false, list = nights();
-          list.forEach(function (d) {
+        f.elements["in"].addEventListener("change", function () { f.elements["out"].min = this.value || iso; });
+        function load() { return cfg ? Promise.resolve(cfg) : fetch(ENDPOINT).then(function (r) { return r.json(); }).then(function (c) { if (!c || !c.rate) throw new Error("x"); cfg = c; return c; }); }
+        load().catch(function () {});
+        function compute() {
+          var total = 0, taken = false, n = 0, d = parse(v("in")), end = parse(v("out"));
+          while (d < end) {
             var k = key(d), r = cfg.rate;
             if (cfg.weekendDays.indexOf(d.getDay()) >= 0) r = Math.round(r * (1 + cfg.weekendUplift / 100));
             (cfg.special || []).forEach(function (x) { if (k >= x.from && k <= x.to) r = x.rate; });
             if ((cfg.booked || []).indexOf(k) >= 0) taken = true;
-            total += r;
-          });
-          qbox.innerHTML = taken ? "Sorry, some of these nights are already booked. Please try other dates."
-            : list.length + (list.length === 1 ? " night" : " nights") + " &middot; <strong>" + inr(total) + "</strong> total";
-          qbox.hidden = false;
-          return { n: list.length, total: total, taken: taken };
+            total += r; n++; d.setDate(d.getDate() + 1);
+          }
+          return { n: n, total: total, taken: taken };
         }
-        f.elements["in"].addEventListener("change", function () { f.elements["out"].min = this.value || iso; quote(); });
-        f.elements["out"].addEventListener("change", quote);
+        function show(step) { s1.hidden = step !== 1; s2.hidden = step !== 2; document.getElementById("direct").scrollIntoView({ block: "start", behavior: "smooth" }); }
+        checkBtn.addEventListener("click", function () {
+          var msg = "";
+          if (!v("in") || !v("out")) msg = "Please pick your check-in and check-out dates.";
+          else if (v("out") <= v("in")) msg = "Check-out needs to be after check-in.";
+          if (msg) { err1.textContent = msg; err1.hidden = false; return; }
+          err1.hidden = true; checkBtn.disabled = true; checkBtn.textContent = "Checking...";
+          load().then(function () {
+            q = compute();
+            if (q.n < cfg.minNights) { err1.textContent = "The minimum stay is " + cfg.minNights + " nights."; err1.hidden = false; return; }
+            if (q.taken) { err1.textContent = "Sorry, some of these nights are already booked. Please try other dates."; err1.hidden = false; return; }
+            var more = v("guests") === "more";
+            var times = (cfg.checkIn ? "Check-in from " + time12(cfg.checkIn) : "") + (cfg.checkOut ? " \u00b7 Check-out by " + time12(cfg.checkOut) : "");
+            qbox.innerHTML = "<strong>Available</strong> \u00b7 " + nice(v("in")) + " to " + nice(v("out")) + " \u00b7 " + q.n + (q.n === 1 ? " night" : " nights") +
+              (more ? "" : " \u00b7 " + v("guests") + (v("guests") === "1" ? " guest" : " guests")) +
+              (more ? "<span class=\"x-quote__big\">Let\u2019s talk</span>For 5 or more guests, chat with us on WhatsApp and we\u2019ll sort out the best option."
+                    : "<span class=\"x-quote__big\">" + inr(q.total) + " total</span>") +
+              (times ? "<br><small>" + times + "</small>" : "");
+            s2.querySelector('button[data-via="req"]').hidden = more;
+            ok.hidden = true; err2.hidden = true;
+            show(2);
+          }).catch(function () {
+            err1.textContent = "We couldn't check right now. Please chat with us on WhatsApp: +91 80880 03883."; err1.hidden = false;
+          }).then(function () { checkBtn.disabled = false; checkBtn.textContent = "Check availability"; });
+        });
+        s2.querySelector('[data-act="back"]').addEventListener("click", function () { show(1); });
         [].slice.call(f.querySelectorAll("button[data-via]")).forEach(function (b) { b.addEventListener("click", function () { via = b.getAttribute("data-via"); }); });
         f.addEventListener("submit", function (ev) {
           ev.preventDefault();
+          if (s2.hidden) { checkBtn.click(); return; }
           ok.hidden = true;
-          var msg = "", q = quote(), more = v("guests") === "more";
-          if (!v("in") || !v("out") || !v("name")) msg = "Please add your dates and name.";
-          else if (v("out") <= v("in")) msg = "Check-out needs to be after check-in.";
-          else if (q && q.n < cfg.minNights) msg = "The minimum stay is " + cfg.minNights + " nights.";
-          else if (q && q.taken) msg = "Some of these nights are already booked. Please pick other dates.";
-          else if (via === "req" && more) msg = "For more than 4 guests, please message us on WhatsApp or call +91 80880 03883.";
+          var more = v("guests") === "more", msg = "";
+          if (!v("name")) msg = "Please add your name.";
           else if (via === "req" && !v("phone") && !v("email")) msg = "Please add a phone number or email so we can confirm.";
-          if (msg) { err.textContent = msg; err.hidden = false; return; }
-          err.hidden = true;
+          if (msg) { err2.textContent = msg; err2.hidden = false; return; }
+          err2.hidden = true;
           var text = "Hi MAAVU, I'd like to book a stay.\n" +
-            "Check-in: " + v("in") + "\nCheck-out: " + v("out") + "\nGuests: " + (more ? "More than 4" : v("guests")) +
-            (q ? "\nEstimate: " + inr(q.total) + " for " + q.n + (q.n === 1 ? " night" : " nights") : "") +
+            "Check-in: " + v("in") + "\nCheck-out: " + v("out") + "\nGuests: " + (more ? "5 or more" : v("guests")) +
+            (q && !more ? "\nTotal shown: " + inr(q.total) + " for " + q.n + (q.n === 1 ? " night" : " nights") : "") +
             "\nName: " + v("name") + (v("phone") ? "\nPhone: " + v("phone") : "") + (v("note") ? "\nNote: " + v("note") : "");
-          if (via === "wa" || !ENDPOINT) { window.open("https://wa.me/918088003883?text=" + encodeURIComponent(text), "_blank", "noopener"); return; }
-          var btn = f.querySelector('button[data-via="req"]'); btn.disabled = true; btn.textContent = "Sending...";
+          if (via === "wa") { window.open("https://wa.me/918088003883?text=" + encodeURIComponent(text), "_blank", "noopener"); return; }
+          var btn = s2.querySelector('button[data-via="req"]'); btn.disabled = true; btn.textContent = "Sending...";
           var body = new URLSearchParams();
           ["in", "out", "guests", "name", "phone", "email", "note"].forEach(function (n) { body.append(n, v(n)); });
           fetch(ENDPOINT, { method: "POST", body: body }).then(function (r) { return r.json(); }).then(function (res) {
             if (!res || !res.ok) throw new Error("x");
-            ok.textContent = res.clash ? "Thanks! Some of those nights look taken, so we'll get back to you with options." : "Thanks, " + v("name") + "! Your request is in. We'll confirm on WhatsApp or email, usually the same day.";
-            ok.hidden = false; f.reset(); qbox.hidden = true;
+            ok.textContent = res.clash ? "Thanks! Those nights were just taken, so we'll get back to you with options." : "Thanks, " + v("name") + "! Your request is in. We'll confirm on WhatsApp or email, usually the same day.";
+            ok.hidden = false;
           }).catch(function () {
-            err.textContent = "That didn't go through. Please message us on WhatsApp instead."; err.hidden = false;
+            err2.textContent = "That didn't go through. Please chat with us on WhatsApp instead."; err2.hidden = false;
           }).then(function () { btn.disabled = false; btn.textContent = "Send request"; });
         });
       })();
