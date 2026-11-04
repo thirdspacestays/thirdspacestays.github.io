@@ -210,6 +210,13 @@
       .x-form__btns { display: flex; flex-wrap: wrap; gap: 12px; }
       .x-form__err { color: var(--x-accent-deep) !important; font-size: 15px !important; }
       @media (max-width: 560px) { .x-form { grid-template-columns: 1fr; } }
+      .x-form select { font: 300 17px/1.4 var(--x-sans); color: var(--x-ink); background: #fff; border: 1px solid var(--x-line); border-radius: 0; padding: 10px 12px; min-height: 44px; width: 100%; text-transform: none; letter-spacing: 0; }
+      .x-rates { display: flex; flex-wrap: wrap; gap: 8px 28px; margin: 4px 0 20px; font: 300 16px/1.5 var(--x-sans); color: var(--x-ink); }
+      .x-rates b { font-weight: 500; }
+      .x-quote { background: #fff; border: 1px solid var(--x-line); padding: 14px 16px; font: 300 17px/1.5 var(--x-sans); color: var(--x-ink); }
+      .x-quote strong { font-weight: 500; }
+      .x-policy { font: 300 14px/1.6 var(--x-sans); color: var(--x-ink-2); margin: 0; }
+      .x-form__ok { color: var(--x-ink) !important; font-size: 16px !important; background: #fff; border-left: 3px solid var(--x-accent-deep); padding: 12px 14px; }
 
       /* footer */
       .x-foot { margin-inline: var(--x-bleed); margin-bottom: -40px; border-top: 1px solid var(--x-line); padding: clamp(56px, 9vw, 96px) var(--gutter) 40px; text-align: center; display: grid; justify-items: center; gap: 22px; }
@@ -430,19 +437,28 @@
           <div class="x-card x-direct x-fade" id="direct">
             <p class="x-soon">Book direct</p>
             <h3>Request your dates</h3>
-            <p>Tell us when you'd like to stay. We'll confirm availability and the price on WhatsApp, usually the same day.</p>
+            <div class="x-rates">
+              <span><b>&#8377;3,700</b> a night, Sun to Thu</span>
+              <span><b>&#8377;4,070</b> a night, Fri and Sat</span>
+              <span>Up to 4 guests</span>
+              <span>Check-in 1 pm &middot; Check-out 11 am</span>
+            </div>
             <form class="x-form" id="x-direct-form" novalidate>
               <label>Check-in<input type="date" name="in" required /></label>
               <label>Check-out<input type="date" name="out" required /></label>
-              <label>Guests<input type="number" name="guests" min="1" value="2" required /></label>
+              <label>Guests<select name="guests"><option>1</option><option selected>2</option><option>3</option><option>4</option><option value="more">More than 4</option></select></label>
               <label>Your name<input type="text" name="name" autocomplete="name" required /></label>
-              <label class="x-form__wide">Phone<input type="tel" name="phone" autocomplete="tel" /></label>
+              <label>Phone<input type="tel" name="phone" autocomplete="tel" /></label>
+              <label>Email<input type="email" name="email" autocomplete="email" /></label>
               <label class="x-form__wide">Anything we should know?<textarea name="note" rows="3"></textarea></label>
+              <div class="x-quote x-form__wide" aria-live="polite" hidden></div>
               <p class="x-form__err x-form__wide" role="alert" hidden></p>
+              <p class="x-form__ok x-form__wide" role="status" hidden></p>
               <div class="x-form__btns x-form__wide">
-                <button class="x-btn" type="submit" data-via="wa">Send on WhatsApp</button>
-                <button class="x-btn x-btn--ghost" type="submit" data-via="mail">Send by email</button>
+                <button class="x-btn" type="submit" data-via="req">Send request</button>
+                <button class="x-btn x-btn--ghost" type="submit" data-via="wa">Ask on WhatsApp</button>
               </div>
+              <p class="x-policy x-form__wide">No payment now. We confirm your dates, usually the same day, then send a secure payment link. Full payment confirms the booking. Full refund if you cancel at least 2 days before check-in.</p>
             </form>
           </div>
         </section>
@@ -504,28 +520,70 @@
       })();
     </script>
     <script>
-      // Direct booking request: builds a WhatsApp or email message from the form.
+      // Direct booking request: live price, availability check, sends to the MAAVU backend (Google Apps Script).
       (function () {
+        var ENDPOINT = "https://script.google.com/macros/s/AKfycbzYxkltDZ3kDjYX_MPJC4YIu4QuOkMqzTJVCxcESvx1zL0jZ13O8As6eYm66I0_LpNbSA/exec";
+        var cfg = { rate: 3700, weekendUplift: 10, weekendDays: [5, 6], maxGuests: 4, minNights: 1, special: [], booked: [] };
         var f = document.getElementById("x-direct-form"); if (!f) return;
-        var err = f.querySelector(".x-form__err"), via = "wa";
-        var today = new Date(); today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
-        var iso = today.toISOString().slice(0, 10);
+        var err = f.querySelector(".x-form__err"), ok = f.querySelector(".x-form__ok"), qbox = f.querySelector(".x-quote"), via = "req";
+        var pad = function (n) { return (n < 10 ? "0" : "") + n; };
+        var key = function (d) { return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); };
+        var parse = function (s) { var a = s.split("-"); return new Date(+a[0], +a[1] - 1, +a[2]); };
+        var inr = function (n) { return "\u20b9" + n.toLocaleString("en-IN"); };
+        var iso = key(new Date());
         f.elements["in"].min = iso; f.elements["out"].min = iso;
-        f.elements["in"].addEventListener("change", function () { f.elements["out"].min = this.value || iso; });
+        if (ENDPOINT) fetch(ENDPOINT).then(function (r) { return r.json(); }).then(function (c) { if (c && c.rate) { cfg = c; quote(); } }).catch(function () {});
+        var v = function (n) { return (f.elements[n].value || "").trim(); };
+        function nights() {
+          var out = [], d = parse(v("in")), end = parse(v("out"));
+          while (d < end) { out.push(new Date(d)); d.setDate(d.getDate() + 1); }
+          return out;
+        }
+        function quote() {
+          if (!v("in") || !v("out") || v("out") <= v("in")) { qbox.hidden = true; return null; }
+          var total = 0, taken = false, list = nights();
+          list.forEach(function (d) {
+            var k = key(d), r = cfg.rate;
+            if (cfg.weekendDays.indexOf(d.getDay()) >= 0) r = Math.round(r * (1 + cfg.weekendUplift / 100));
+            (cfg.special || []).forEach(function (x) { if (k >= x.from && k <= x.to) r = x.rate; });
+            if ((cfg.booked || []).indexOf(k) >= 0) taken = true;
+            total += r;
+          });
+          qbox.innerHTML = taken ? "Sorry, some of these nights are already booked. Please try other dates."
+            : list.length + (list.length === 1 ? " night" : " nights") + " &middot; <strong>" + inr(total) + "</strong> total";
+          qbox.hidden = false;
+          return { n: list.length, total: total, taken: taken };
+        }
+        f.elements["in"].addEventListener("change", function () { f.elements["out"].min = this.value || iso; quote(); });
+        f.elements["out"].addEventListener("change", quote);
         [].slice.call(f.querySelectorAll("button[data-via]")).forEach(function (b) { b.addEventListener("click", function () { via = b.getAttribute("data-via"); }); });
         f.addEventListener("submit", function (ev) {
           ev.preventDefault();
-          var v = function (n) { return (f.elements[n].value || "").trim(); };
-          var msg = "";
+          ok.hidden = true;
+          var msg = "", q = quote(), more = v("guests") === "more";
           if (!v("in") || !v("out") || !v("name")) msg = "Please add your dates and name.";
           else if (v("out") <= v("in")) msg = "Check-out needs to be after check-in.";
+          else if (q && q.n < cfg.minNights) msg = "The minimum stay is " + cfg.minNights + " nights.";
+          else if (q && q.taken) msg = "Some of these nights are already booked. Please pick other dates.";
+          else if (via === "req" && more) msg = "For more than 4 guests, please message us on WhatsApp or call +91 80880 03883.";
+          else if (via === "req" && !v("phone") && !v("email")) msg = "Please add a phone number or email so we can confirm.";
           if (msg) { err.textContent = msg; err.hidden = false; return; }
           err.hidden = true;
           var text = "Hi MAAVU, I'd like to book a stay.\n" +
-            "Check-in: " + v("in") + "\nCheck-out: " + v("out") + "\nGuests: " + v("guests") +
+            "Check-in: " + v("in") + "\nCheck-out: " + v("out") + "\nGuests: " + (more ? "More than 4" : v("guests")) +
+            (q ? "\nEstimate: " + inr(q.total) + " for " + q.n + (q.n === 1 ? " night" : " nights") : "") +
             "\nName: " + v("name") + (v("phone") ? "\nPhone: " + v("phone") : "") + (v("note") ? "\nNote: " + v("note") : "");
-          if (via === "mail") window.location.href = "mailto:thirdspacestays.in@gmail.com?subject=" + encodeURIComponent("Booking request: " + v("in") + " to " + v("out")) + "&body=" + encodeURIComponent(text);
-          else window.open("https://wa.me/918088003883?text=" + encodeURIComponent(text), "_blank", "noopener");
+          if (via === "wa" || !ENDPOINT) { window.open("https://wa.me/918088003883?text=" + encodeURIComponent(text), "_blank", "noopener"); return; }
+          var btn = f.querySelector('button[data-via="req"]'); btn.disabled = true; btn.textContent = "Sending...";
+          var body = new URLSearchParams();
+          ["in", "out", "guests", "name", "phone", "email", "note"].forEach(function (n) { body.append(n, v(n)); });
+          fetch(ENDPOINT, { method: "POST", body: body }).then(function (r) { return r.json(); }).then(function (res) {
+            if (!res || !res.ok) throw new Error("x");
+            ok.textContent = res.clash ? "Thanks! Some of those nights look taken, so we'll get back to you with options." : "Thanks, " + v("name") + "! Your request is in. We'll confirm on WhatsApp or email, usually the same day.";
+            ok.hidden = false; f.reset(); qbox.hidden = true;
+          }).catch(function () {
+            err.textContent = "That didn't go through. Please message us on WhatsApp instead."; err.hidden = false;
+          }).then(function () { btn.disabled = false; btn.textContent = "Send request"; });
         });
       })();
     </script>
