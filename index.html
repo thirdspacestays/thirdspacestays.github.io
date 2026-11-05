@@ -9,11 +9,11 @@
     <meta name="keywords" content="MAAVU, Third Space, Third Space stays, Airbnb Hennur, homestay Bengaluru, boutique stay Bengaluru, Hennur Gardens, Kalyan Nagar stay" />
     <meta property="og:title" content="MAAVU by Third Space · A boutique stay in Bengaluru" />
     <meta property="og:description" content="An architect-designed private 1BHK with a big verandah in Hennur, Bengaluru. Stay · Connect · Experience." />
-    <meta property="og:image" content="https://thirdspacestays.in/hero_verandah.jpg" />
+    <meta property="og:image" content="https://thirdspacestays.in/maavu_p01.jpg" />
     <meta property="og:url" content="https://thirdspacestays.in/" />
     <meta property="og:type" content="website" />
-    <link rel="icon" href="third_space_logo_4k_transparent.png" />
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"LodgingBusiness","name":"MAAVU by Third Space","description":"An architect-designed private 1BHK stay with a large verandah in Hennur, Bengaluru.","image":"https://thirdspacestays.in/hero_verandah.jpg","url":"https://thirdspacestays.in/","telephone":"+91-8088003883","email":"thirdspacestays.in@gmail.com","address":{"@type":"PostalAddress","streetAddress":"Satyam Greens, 6th Cross, Mallappa Layout, DVR Layout, Hennur Gardens","addressLocality":"Bengaluru","postalCode":"560113","addressRegion":"Karnataka","addressCountry":"IN"},"sameAs":["https://www.instagram.com/maavu.thirdspace/"]}</script>
+    <link rel="icon" href="third_space_logo.png" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"LodgingBusiness","name":"MAAVU by Third Space","description":"An architect-designed private 1BHK stay with a large verandah in Hennur, Bengaluru.","image":"https://thirdspacestays.in/maavu_p01.jpg","url":"https://thirdspacestays.in/","telephone":"+91-8088003883","email":"thirdspacestays.in@gmail.com","address":{"@type":"PostalAddress","streetAddress":"Satyam Greens, 6th Cross, Mallappa Layout, DVR Layout, Hennur Gardens","addressLocality":"Bengaluru","postalCode":"560113","addressRegion":"Karnataka","addressCountry":"IN"},"sameAs":["https://www.instagram.com/maavu.thirdspace/"]}</script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -55,9 +55,9 @@
       }
       .x-bar__logo { display: block; width: 64px; }
 
-      /* logo crop: trims the transparent margins of the 3840x2160 file */
-      .x-logo { display: block; aspect-ratio: 1698 / 1392; overflow: hidden; }
-      .x-logo img { width: 226.15%; max-width: none; margin-left: -62.66%; margin-top: -23.2%; }
+      /* logo: tightly cropped transparent PNG */
+      .x-logo { display: block; aspect-ratio: 920 / 759; overflow: hidden; }
+      .x-logo img { display: block; width: 100%; height: auto; }
 
       /* buttons */
       .x-btn {
@@ -150,7 +150,7 @@
       .x-verandah h3 { font: 300 clamp(30px, 4vw, 44px)/1.15 var(--x-serif); margin-bottom: 18px; }
 
       /* gallery */
-      .x-gallery { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(10px, 1.6vw, 20px); margin-top: 40px; }
+      .x-gallery { display: grid; grid-auto-flow: dense; grid-template-columns: 1fr 1fr; gap: clamp(10px, 1.6vw, 20px); margin-top: 40px; }
       .x-gallery figure { margin: 0; overflow: hidden; display: grid; }
       .x-gallery figure:first-child { grid-column: 1 / -1; }
       @media (min-width: 720px) {
@@ -246,7 +246,7 @@
       <header class="x-bar">
         <div class="x-bar__in">
           <a class="x-bar__logo" href="#top" aria-label="MAAVU by Third Space, back to top">
-            <span class="x-logo"><img src="third_space_logo_4k_transparent.png" alt="Third Space" /></span>
+            <span class="x-logo"><img src="third_space_logo.png" alt="Third Space" /></span>
           </a>
           <a class="x-btn x-btn--small" href="#book">Book your stay</a>
         </div>
@@ -255,7 +255,7 @@
       <main class="main">
         <!-- 1. Hero -->
         <section class="x-hero" aria-label="MAAVU">
-          <img src="hero_verandah.jpg" alt="The verandah at MAAVU, with the open door looking through to the terracotta arch in the living room" />
+          <img src="maavu_p01.jpg" alt="The covered verandah at MAAVU under its pitched roof, with the wooden swing, daybed and lanterns" />
           <div class="x-hero__copy">
             <p class="x-hero__eyebrow">Third Space · Bengaluru</p>
             <h1>MAAVU</h1>
@@ -309,7 +309,7 @@
           </div>
           <div class="x-split x-verandah" style="margin-top: clamp(32px, 5vw, 56px)">
             <figure class="x-photo x-photo--tall x-fade" style="margin: 0">
-              <img src="maavu_8433.jpg" alt="The covered verandah with a daybed, curtains and a wooden swing" />
+              <img src="maavu_p06.jpg" alt="The verandah daybed with cane stools, curtains and string lights" />
             </figure>
             <div class="x-fade">
               <p class="x-eyebrow">The verandah</p>
@@ -319,30 +319,31 @@
           </div>
           <div class="x-features">
             <div class="x-feature x-fade">
-              <figure class="x-feature__media"><img src="maavu_8460.jpg" alt="The living room's terracotta arch with a floor lamp, bookshelf and sofa" /></figure>
+              <figure class="x-feature__media"><img src="maavu_p11.jpg" alt="The living room's terracotta arch with a floor lamp, bookshelf and sofa" /></figure>
               <p class="x-feature__num">01</p>
               <h3>Living room</h3>
               <p>For reading, working or unwinding.</p>
             </div>
             <div class="x-feature x-fade">
-              <figure class="x-feature__media"><img src="maavu_8448.jpg" alt="The terracotta arch wall with floating shelves" /></figure>
+              <figure class="x-feature__media"><img src="maavu_p10.jpg" alt="The front door opening onto the terracotta arch wall and floating shelves" /></figure>
               <p class="x-feature__num">02</p>
               <h3>The details</h3>
               <p>A terracotta arch wall, floating shelves of plants and books, warm lamp light.</p>
             </div>
             <div class="x-feature x-fade">
-              <figure class="x-feature__media"><img src="maavu_8484.jpg" alt="The bathroom sink and mirror with terrazzo-style tiles" /></figure>
+              <figure class="x-feature__media"><img src="maavu_p14.jpg" alt="The bathroom sink and mirror with terrazzo-style tiles" /></figure>
               <p class="x-feature__num">03</p>
               <h3>Bathroom</h3>
               <p>Bright terrazzo-style tiles and a terracotta finish.</p>
             </div>
             <div class="x-feature x-feature--wide x-fade">
-              <figure class="x-feature__media x-feature__media--land"><img src="maavu_8469.jpg" alt="The bedroom with a terracotta dado and woven plates on the wall" /></figure>
+              <figure class="x-feature__media x-feature__media--land"><img src="maavu_p07.jpg" alt="The bedroom with a terracotta dado and woven plates on the wall" /></figure>
               <p class="x-feature__num">04</p>
               <h3>Bedroom</h3>
               <p>Cosy, quiet and made for deep rest.</p>
             </div>
             <div class="x-feature x-feature--last x-fade">
+              <figure class="x-feature__media x-feature__media--land"><img src="maavu_p15.jpg" alt="The kitchen with cane-front cabinets, a fridge and a water purifier" /></figure>
               <p class="x-feature__num">05</p>
               <h3>Kitchen</h3>
               <p>For simple home-cooked meals.</p>
@@ -354,13 +355,22 @@
         <section class="x-sec" id="gallery" style="padding-top: 0">
           <p class="x-eyebrow x-fade">Gallery</p>
           <div class="x-gallery">
-            <figure class="x-fade"><button class="x-tile" type="button" aria-label="Open photo: the verandah, wide view"><img src="maavu_8446.jpg" alt="A wide view of the covered verandah" /></button></figure>
-            <figure class="x-fade"><button class="x-tile" type="button" aria-label="Open photo: the wooden swing"><img src="maavu_8439.jpg" alt="The wooden swing on the verandah" /></button></figure>
-            <figure class="x-fade"><button class="x-tile" type="button" aria-label="Open photo: the verandah and front door"><img src="maavu_8427.jpg" alt="The front of the verandah with the door into the house" /></button></figure>
-            <figure class="x-fade"><button class="x-tile" type="button" aria-label="Open photo: the living room arch"><img src="maavu_8465.jpg" alt="The living room and its terracotta arch, up close" /></button></figure>
-            <figure class="x-fade"><button class="x-tile" type="button" aria-label="Open photo: the bedroom"><img src="maavu_8468.jpg" alt="The bedroom" /></button></figure>
-            <figure class="x-tile--big x-fade"><button class="x-tile" type="button" aria-label="Open photo: the bedside lamp"><img src="maavu_8483.jpg" alt="The bedside lamp, a close detail" /></button></figure>
-            <figure class="x-tile--big x-fade"><button class="x-tile" type="button" aria-label="Open photo: the bathroom"><img src="maavu_8485.jpg" alt="The bathroom" /></button></figure>
+            <figure class="x-fade"><button class="x-tile" type="button" aria-label="Open photo: the verandah, wide view"><img src="maavu_p01.jpg" alt="The covered verandah under its pitched roof" loading="lazy" /></button></figure>
+            <figure class="x-fade"><button class="x-tile" type="button" aria-label="Open photo: the verandah and front door"><img src="maavu_p02.jpg" alt="The verandah looking toward the front door" loading="lazy" /></button></figure>
+            <figure class="x-fade"><button class="x-tile" type="button" aria-label="Open photo: the verandah daybed"><img src="maavu_p03.jpg" alt="The verandah daybed with curtains and string lights" loading="lazy" /></button></figure>
+            <figure class="x-fade"><button class="x-tile" type="button" aria-label="Open photo: the verandah seating"><img src="maavu_p04.jpg" alt="Verandah seating with cane stools and a striped rug" loading="lazy" /></button></figure>
+            <figure class="x-fade"><button class="x-tile" type="button" aria-label="Open photo: the wooden swing"><img src="maavu_p05.jpg" alt="The wooden swing on the verandah" loading="lazy" /></button></figure>
+            <figure class="x-fade"><button class="x-tile" type="button" aria-label="Open photo: the daybed corner"><img src="maavu_p06.jpg" alt="The daybed corner with cane stools" loading="lazy" /></button></figure>
+            <figure class="x-fade"><button class="x-tile" type="button" aria-label="Open photo: the front door"><img src="maavu_p10.jpg" alt="The front door opening into the living room" loading="lazy" /></button></figure>
+            <figure class="x-fade"><button class="x-tile" type="button" aria-label="Open photo: the living room arch"><img src="maavu_p11.jpg" alt="The living room and its terracotta arch" loading="lazy" /></button></figure>
+            <figure class="x-tile--big x-fade"><button class="x-tile" type="button" aria-label="Open photo: the living room"><img src="maavu_p12.jpg" alt="The living room sofa, coffee table and bookshelf" loading="lazy" /></button></figure>
+            <figure class="x-tile--big x-fade"><button class="x-tile" type="button" aria-label="Open photo: the bedroom"><img src="maavu_p07.jpg" alt="The bedroom with a queen bed and woven wall plates" loading="lazy" /></button></figure>
+            <figure class="x-fade"><button class="x-tile" type="button" aria-label="Open photo: the bedroom, side view"><img src="maavu_p08.jpg" alt="The bedroom from the side, with the wardrobe" loading="lazy" /></button></figure>
+            <figure class="x-fade"><button class="x-tile" type="button" aria-label="Open photo: the bedroom corner"><img src="maavu_p09.jpg" alt="The bedroom corner with a mirror and floor lamp" loading="lazy" /></button></figure>
+            <figure class="x-fade"><button class="x-tile" type="button" aria-label="Open photo: the bathroom"><img src="maavu_p13.jpg" alt="The bathroom with terrazzo-style tiles" loading="lazy" /></button></figure>
+            <figure class="x-fade"><button class="x-tile" type="button" aria-label="Open photo: the bathroom sink"><img src="maavu_p14.jpg" alt="The bathroom sink and mirror" loading="lazy" /></button></figure>
+            <figure class="x-tile--big x-fade"><button class="x-tile" type="button" aria-label="Open photo: the kitchen"><img src="maavu_p15.jpg" alt="The kitchen with cane-front cabinets and fridge" loading="lazy" /></button></figure>
+            <figure class="x-fade"><button class="x-tile" type="button" aria-label="Open photo: the kitchen counter"><img src="maavu_p16.jpg" alt="The kitchen counter and water purifier" loading="lazy" /></button></figure>
           </div>
           <dialog class="x-lb" aria-label="Photo viewer">
             <img alt="" />
@@ -471,7 +481,7 @@
 
       <!-- 9. Footer -->
       <footer class="x-foot">
-        <span class="x-logo"><img src="third_space_logo_4k_transparent.png" alt="MAAVU by Third Space" /></span>
+        <span class="x-logo"><img src="third_space_logo.png" alt="MAAVU by Third Space" /></span>
         <hr class="x-rule" />
         <p class="x-foot__line">MAAVU by Third Space · Stay · Connect · Experience · Bengaluru</p>
         <a class="x-link" href="https://www.instagram.com/maavu.thirdspace/" target="_blank" rel="noopener">Instagram</a>
