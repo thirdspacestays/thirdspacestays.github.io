@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://thirdspacestays.github.io/sitemap.xml
+Sitemap: https://thirdspacestays.in/sitemap.xml
